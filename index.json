@@ -3569,6 +3569,20 @@
           "type": "query",
           "render": "taskStatus",
           "taskIdParam": "task_id"
+        },
+        {
+          "method": "POST",
+          "path": "/seedance/api/v3/contents/generations/tasks",
+          "type": "submit",
+          "decode": "createArkTask",
+          "render": "arkTaskCreated"
+        },
+        {
+          "method": "GET",
+          "path": "/seedance/api/v3/contents/generations/tasks/:task_id",
+          "type": "query",
+          "render": "arkTaskStatus",
+          "taskIdParam": "task_id"
         }
       ],
       "protocols": [
@@ -4919,8 +4933,15 @@
         "Wonder-Pro",
         "pgy-seedance-2.0"
       ],
-      "latest": "1.1.0",
+      "latest": "1.2.0",
       "versions": [
+        {
+          "version": "1.2.0",
+          "path": "plugins/tasks/seedance/1.2.0/plugin.js",
+          "sha256": "5fc9cbd8d0b16dd85988742c446163b756b54a31a0bcc4ede2bc6517c05bc503",
+          "minApiVersion": 1,
+          "kind": "task"
+        },
         {
           "version": "1.1.0",
           "path": "plugins/tasks/seedance/1.1.0/plugin.js",
