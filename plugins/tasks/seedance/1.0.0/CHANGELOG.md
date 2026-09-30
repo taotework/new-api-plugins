@@ -21,6 +21,7 @@ translations:
 
 ### Migration
 
-- Install this plugin on a gateway build that supports several channels sharing one plugin, and remove the separate Wasu and TelecomJS plugins from that gateway so channel types 104 and 105 bind unambiguously to this plugin.
+- Price each mapped internal model name where channels serve the same client-facing model at different tiers (for example `doubao-seedance-2-5-betydance` against `doubao-seedance-2.0`); a price configured on the client-facing name takes precedence and overrides the per-tier prices, so leave the client-facing name unpriced when the tiers differ.
+- Remove the separate Wasu and TelecomJS plugins from the gateway before installing this one — a gateway rejects a newly installed plugin whose channel types are already claimed — and install it on a gateway build that supports several channels sharing one plugin, so channel types 104 and 105 bind unambiguously.
 - Keep each existing type-104 and type-105 channel's Base URL, key, and model mapping: map `*-betydance` names on TelecomJS channels and plain `doubao-seedance-2.0`, `-fast`, and `-mini` names on Wasu channels.
 - For a New API channel that chains into another gateway, upgrade both ends of the chain to this plugin; the chained path prefix is `/seedance`, replacing the old `/wasu` and `/telecomjs` prefixes.

@@ -26,7 +26,8 @@ translations:
 
 ### Migration
 
-- Remove the separate MaiCang, Stelloria, and PGY Seedance plugins from the gateway (in addition to the Wasu and TelecomJS plugins named in 1.0.0), so channel types 101 through 105 bind unambiguously to this plugin.
+- Price each mapped internal model name where channels serve the same client-facing model at different tiers (for example `doubao-seedance-2-5-betydance` against `doubao-seedance-2.0`); a price configured on the client-facing name takes precedence and overrides the per-tier prices, so leave the client-facing name unpriced when the tiers differ.
+- Remove all five standalone Seedance plugins — MaiCang, Stelloria, PGY Seedance, and the Wasu and TelecomJS plugins named in 1.0.0 — from the gateway before installing this one: a gateway rejects a newly installed plugin whose channel types are already claimed. Channel types 101 through 105 then bind unambiguously to this plugin.
 - Keep each channel's Base URL, key, and model mapping: `tipdance-*` names on MaiCang channels, `seedance-2.0` and `Wonder-Pro` on Stelloria channels, `pgy-*` names on PGY channels, `*-betydance` names on TelecomJS channels, and plain `doubao-seedance-2.0`, `-fast`, and `-mini` names on Wasu channels.
 - Stelloria channels that mapped the name `doubao-seedance-2.0` must map `seedance-2.0` instead — the plain `doubao-seedance-*` names now select the Wasu dialect, and `seedance-2.0` is Stelloria's own alias of the same upstream model.
 - For a New API channel that chains into another gateway, both ends of the chain must run this plugin; the chained path prefix is `/seedance` for every dialect, replacing the old `/maicang`, `/stelloria`, and `/pgy` prefixes.
