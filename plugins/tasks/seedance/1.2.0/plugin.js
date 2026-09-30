@@ -4,8 +4,11 @@
 //
 // Every vendor resells the same Doubao Seedance family (plus Stelloria's
 // Wonder-Pro animation model), so capability gating and pricing follow the
-// official doubao plugin line; only the wire dialects differ, and the
-// channel-mapped model name selects the dialect:
+// official doubao plugin line; only the wire dialects differ. The dialect is
+// the executing channel's type when the host provides ctx.channelType
+// (101 MaiCang, 102 Stelloria, 103 PGY, 104 Wasu, 105 TelecomJS), and the
+// channel-mapped model name is the fallback for hosts without channel
+// identity (or generic Task Plugin / New API chain channels):
 //
 //   doubao-seedance-2.0 / -fast / -mini            -> Wasu dialect
 //   doubao-seedance-*-betydance                    -> TelecomJS dialect
@@ -78,7 +81,7 @@
 // Official Ark-format surface (1.2.0): the same task pipeline is also
 // reachable in the Volcengine-native request/response shape, alongside the
 // routes above. Clients speak the official format — POST {gateway}/seedance/
-// api/v3/contents/generations/tasks with {model, content:[text/image_url/
+// v3/contents/generations/tasks with {model, content:[text/image_url/
 // video_url/audio_url items with roles], resolution?, ratio?, duration?,
 // generate_audio?, seed?, watermark?, camera_fixed?, return_last_frame?,
 // service_tier?, callback_url?} (flat params, prompt as a content text item,
@@ -197,8 +200,8 @@ export const meta = {
   routes: [
     { method: "POST", path: "/seedance/v1/video/generations", type: "submit", decode: "createTask", render: "taskCreated" },
     { method: "GET", path: "/seedance/v1/video/generations/:task_id", type: "query", render: "taskStatus" },
-    { method: "POST", path: "/seedance/api/v3/contents/generations/tasks", type: "submit", decode: "createArkTask", render: "arkTaskCreated" },
-    { method: "GET", path: "/seedance/api/v3/contents/generations/tasks/:task_id", type: "query", render: "arkTaskStatus" },
+    { method: "POST", path: "/seedance/v3/contents/generations/tasks", type: "submit", decode: "createArkTask", render: "arkTaskCreated" },
+    { method: "GET", path: "/seedance/v3/contents/generations/tasks/:task_id", type: "query", render: "arkTaskStatus" },
   ],
   protocols: [{ name: "openai_responses", supports: ["stream", "sync", "background"] }, "openai_video"],
 };
@@ -223,12 +226,25 @@ function normalizedModelName(ctx) {
   return trimmed((ctx && (ctx.upstreamModel || ctx.model)) || req.model).toLowerCase().replace(/[._]/g, "-");
 }
 
-// Vendor dialect for the executing channel, keyed on the mapped model name —
-// every declared name family is unambiguous: *-betydance resells via
-// TelecomJS, tipdance-* via MaiCang, pgy-* via the PGY relay, seedance-2.* and
-// Wonder-* via Stelloria, and the plain doubao-seedance-* names via Wasu.
-// Chain mode ignores the dialect — the gateway-to-gateway body is uniform.
+// Vendor dialect for the executing channel. The channel type is
+// authoritative when the host provides it — types 101-105 map 1:1 to the
+// five gateways (101 MaiCang, 102 Stelloria, 103 PGY, 104 Wasu, 105
+// TelecomJS), so a channel serving model names outside its family still
+// speaks its own wire protocol. A missing/zero type (older hosts omit the
+// field) or any other type (61 generic Task Plugin channel whose upstream
+// vendor the model mapping decides, 60 New API chain) falls back to the
+// model-name family: *-betydance resells via TelecomJS, tipdance-* via
+// MaiCang, pgy-* via the PGY relay, seedance-2.* and Wonder-* via
+// Stelloria, and the plain doubao-seedance-* names via Wasu. Chain mode
+// ignores the dialect — the gateway-to-gateway body is uniform.
+// ctx.channelId is gateway-internal and never persisted.
 function dialectOf(ctx) {
+  var t = Number(ctx && ctx.channelType) || 0;
+  if (t === 101) return "maicang";
+  if (t === 102) return "stelloria";
+  if (t === 103) return "pgy";
+  if (t === 104) return "wasu";
+  if (t === 105) return "telecomjs";
   var m = normalizedModelName(ctx);
   if (/-betydance$/.test(m)) return "telecomjs";
   if (m.indexOf("tipdance-") === 0) return "maicang";
@@ -879,11 +895,16 @@ export const native = {
       requestBody: { model: model, prompt: prompt, metadata: metadata },
     };
   },
-  // Official submit response shape: {id, model, status:"queued"}.
+  // Official submit response shape: {id, model, status:"queued"}. Official
+  // Ark echoes the requested model, so the request body is the primary model
+  // source (the host task view does not expose task.properties); the stored
+  // upstream response and properties stay as fallbacks.
   arkTaskCreated: function (ctx, task) {
     var data = task.data && typeof task.data === "object" && !Array.isArray(task.data) ? task.data : {};
     var out = { id: task.task_id, status: "queued" };
-    var model = data.model !== undefined && trimmed(data.model) ? trimmed(data.model) : task.properties ? trimmed(task.properties.origin_model_name) : "";
+    var ctxBody = (ctx && ctx.body) || {};
+    var reqBody = ctxBody.value && typeof ctxBody.value === "object" && !Array.isArray(ctxBody.value) ? ctxBody.value : {};
+    var model = trimmed(reqBody.model) || trimmed(data.model) || (task.properties ? trimmed(task.properties.origin_model_name) : "");
     if (model) out.model = model;
     return out;
   },

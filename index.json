@@ -3572,14 +3572,14 @@
         },
         {
           "method": "POST",
-          "path": "/seedance/api/v3/contents/generations/tasks",
+          "path": "/seedance/v3/contents/generations/tasks",
           "type": "submit",
           "decode": "createArkTask",
           "render": "arkTaskCreated"
         },
         {
           "method": "GET",
-          "path": "/seedance/api/v3/contents/generations/tasks/:task_id",
+          "path": "/seedance/v3/contents/generations/tasks/:task_id",
           "type": "query",
           "render": "arkTaskStatus",
           "taskIdParam": "task_id"
@@ -4938,7 +4938,7 @@
         {
           "version": "1.2.0",
           "path": "plugins/tasks/seedance/1.2.0/plugin.js",
-          "sha256": "5fc9cbd8d0b16dd85988742c446163b756b54a31a0bcc4ede2bc6517c05bc503",
+          "sha256": "8ef708bbccef36dd3648c612573d8a22a42a8a7b97b4e2ad4fe027276e1d4f72",
           "minApiVersion": 1,
           "kind": "task"
         },
