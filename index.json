@@ -3548,6 +3548,752 @@
       ]
     },
     {
+      "key": "seedance",
+      "name": "Seedance Video (Wasu + TelecomJS)",
+      "icon": "text:SD",
+      "description": {
+        "en": "Doubao Seedance video generation through the Wasu and TelecomJS gateways — both upstream dialects behind one plugin, for channels of type 104 and 105",
+        "zh": "豆包 Seedance 视频生成，一个插件同时支持华数（104）与江苏电信（105）两条上游方言"
+      },
+      "routes": [
+        {
+          "method": "POST",
+          "path": "/seedance/v1/video/generations",
+          "type": "submit",
+          "decode": "createTask",
+          "render": "taskCreated"
+        },
+        {
+          "method": "GET",
+          "path": "/seedance/v1/video/generations/:task_id",
+          "type": "query",
+          "render": "taskStatus",
+          "taskIdParam": "task_id"
+        }
+      ],
+      "protocols": [
+        {
+          "name": "openai_responses",
+          "supports": [
+            "stream",
+            "sync",
+            "background"
+          ]
+        },
+        {
+          "name": "openai_video"
+        }
+      ],
+      "usageSchema": {
+        "duration": {
+          "type": "number",
+          "unit": "second",
+          "description": {
+            "en": "Output video duration in seconds. Requests that omit it default to 5s, except the TelecomJS 2.5 tier which defaults to 10s.",
+            "zh": "输出视频时长（秒）。不传时默认 5 秒；电信 2.5 档默认 10 秒。"
+          }
+        },
+        "resolution": {
+          "enum": [
+            "480p",
+            "720p",
+            "1080p",
+            "4k"
+          ],
+          "description": {
+            "en": "Output video resolution tier. 4k is supported by the 2.0 standard tiers; fast/mini tiers cap at 720p; the 2.5 tier caps at 1080p.",
+            "zh": "输出视频分辨率档位。4k 仅 2.0 标准版支持；fast/mini 档上限 720p；2.5 档上限 1080p。"
+          },
+          "enumLabels": {
+            "1080p": {
+              "en": "1080p",
+              "zh": "1080p"
+            },
+            "480p": {
+              "en": "480p",
+              "zh": "480p"
+            },
+            "4k": {
+              "en": "4k",
+              "zh": "4k"
+            },
+            "720p": {
+              "en": "720p",
+              "zh": "720p"
+            }
+          }
+        },
+        "tokens": {
+          "type": "number",
+          "unit": "token",
+          "description": {
+            "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024); TelecomJS requests settle to the gateway-reported real total on completion.",
+            "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）；电信上游在完成时按真实用量结算。"
+          }
+        },
+        "video_input": {
+          "enum": [
+            "none",
+            "video"
+          ],
+          "description": {
+            "en": "Reference video input.",
+            "zh": "参考视频输入。"
+          },
+          "enumLabels": {
+            "none": {
+              "en": "No reference video",
+              "zh": "无参考视频"
+            },
+            "video": {
+              "en": "With reference video",
+              "zh": "有参考视频"
+            }
+          }
+        }
+      },
+      "usageExamples": [
+        {
+          "label": "480p · 5s",
+          "facts": {
+            "duration": 5,
+            "resolution": "480p",
+            "tokens": 48038,
+            "video_input": "none"
+          }
+        },
+        {
+          "label": "720p · 5s",
+          "facts": {
+            "duration": 5,
+            "resolution": "720p",
+            "tokens": 108000,
+            "video_input": "none"
+          }
+        },
+        {
+          "label": "1080p · 5s",
+          "facts": {
+            "duration": 5,
+            "resolution": "1080p",
+            "tokens": 243000,
+            "video_input": "none"
+          }
+        },
+        {
+          "label": "4k · 5s",
+          "facts": {
+            "duration": 5,
+            "resolution": "4k",
+            "tokens": 972000,
+            "video_input": "none"
+          }
+        },
+        {
+          "label": "4k · 5s (视频输入)",
+          "facts": {
+            "duration": 5,
+            "resolution": "4k",
+            "tokens": 972000,
+            "video_input": "video"
+          }
+        },
+        {
+          "label": "720p · 10s",
+          "facts": {
+            "duration": 10,
+            "resolution": "720p",
+            "tokens": 216000,
+            "video_input": "none"
+          }
+        },
+        {
+          "label": "1080p · 10s (电信 2.5 档默认时长)",
+          "facts": {
+            "duration": 10,
+            "resolution": "1080p",
+            "tokens": 486000,
+            "video_input": "none"
+          }
+        },
+        {
+          "label": "1080p · 5s (视频输入)",
+          "facts": {
+            "duration": 5,
+            "resolution": "1080p",
+            "tokens": 243000,
+            "video_input": "video"
+          }
+        }
+      ],
+      "usageProfiles": [
+        {
+          "models": [
+            "doubao-seedance-2.0"
+          ],
+          "schema": {
+            "duration": {
+              "type": "number",
+              "unit": "second",
+              "description": {
+                "en": "Output video duration in seconds (defaults to 5s when omitted).",
+                "zh": "输出视频时长（秒），不传时默认 5 秒。"
+              }
+            },
+            "resolution": {
+              "enum": [
+                "480p",
+                "720p",
+                "1080p",
+                "4k"
+              ],
+              "description": {
+                "en": "Output video resolution tier",
+                "zh": "输出视频分辨率档位"
+              },
+              "enumLabels": {
+                "1080p": {
+                  "en": "1080p",
+                  "zh": "1080p"
+                },
+                "480p": {
+                  "en": "480p",
+                  "zh": "480p"
+                },
+                "4k": {
+                  "en": "4k",
+                  "zh": "4k"
+                },
+                "720p": {
+                  "en": "720p",
+                  "zh": "720p"
+                }
+              }
+            },
+            "tokens": {
+              "type": "number",
+              "unit": "token",
+              "description": {
+                "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024).",
+                "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）。"
+              }
+            },
+            "video_input": {
+              "enum": [
+                "none",
+                "video"
+              ],
+              "description": {
+                "en": "Reference video input",
+                "zh": "参考视频输入"
+              },
+              "enumLabels": {
+                "none": {
+                  "en": "No reference video",
+                  "zh": "无参考视频"
+                },
+                "video": {
+                  "en": "With reference video",
+                  "zh": "有参考视频"
+                }
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "480p · 5s",
+              "facts": {
+                "duration": 5,
+                "resolution": "480p",
+                "tokens": 48038,
+                "video_input": "none"
+              }
+            },
+            {
+              "label": "720p · 5s",
+              "facts": {
+                "duration": 5,
+                "resolution": "720p",
+                "tokens": 108000,
+                "video_input": "none"
+              }
+            },
+            {
+              "label": "1080p · 5s",
+              "facts": {
+                "duration": 5,
+                "resolution": "1080p",
+                "tokens": 243000,
+                "video_input": "none"
+              }
+            },
+            {
+              "label": "4k · 5s",
+              "facts": {
+                "duration": 5,
+                "resolution": "4k",
+                "tokens": 972000,
+                "video_input": "none"
+              }
+            },
+            {
+              "label": "720p · 5s (视频输入)",
+              "facts": {
+                "duration": 5,
+                "resolution": "720p",
+                "tokens": 108000,
+                "video_input": "video"
+              }
+            }
+          ]
+        },
+        {
+          "models": [
+            "doubao-seedance-2.0-fast",
+            "doubao-seedance-2.0-mini"
+          ],
+          "schema": {
+            "duration": {
+              "type": "number",
+              "unit": "second",
+              "description": {
+                "en": "Output video duration in seconds (defaults to 5s when omitted).",
+                "zh": "输出视频时长（秒），不传时默认 5 秒。"
+              }
+            },
+            "resolution": {
+              "enum": [
+                "480p",
+                "720p"
+              ],
+              "description": {
+                "en": "Output video resolution tier",
+                "zh": "输出视频分辨率档位"
+              },
+              "enumLabels": {
+                "480p": {
+                  "en": "480p",
+                  "zh": "480p"
+                },
+                "720p": {
+                  "en": "720p",
+                  "zh": "720p"
+                }
+              }
+            },
+            "tokens": {
+              "type": "number",
+              "unit": "token",
+              "description": {
+                "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024).",
+                "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）。"
+              }
+            },
+            "video_input": {
+              "enum": [
+                "none",
+                "video"
+              ],
+              "description": {
+                "en": "Reference video input",
+                "zh": "参考视频输入"
+              },
+              "enumLabels": {
+                "none": {
+                  "en": "No reference video",
+                  "zh": "无参考视频"
+                },
+                "video": {
+                  "en": "With reference video",
+                  "zh": "有参考视频"
+                }
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "480p · 5s",
+              "facts": {
+                "duration": 5,
+                "resolution": "480p",
+                "tokens": 48038,
+                "video_input": "none"
+              }
+            },
+            {
+              "label": "720p · 5s",
+              "facts": {
+                "duration": 5,
+                "resolution": "720p",
+                "tokens": 108000,
+                "video_input": "none"
+              }
+            },
+            {
+              "label": "720p · 5s (视频输入)",
+              "facts": {
+                "duration": 5,
+                "resolution": "720p",
+                "tokens": 108000,
+                "video_input": "video"
+              }
+            }
+          ]
+        },
+        {
+          "models": [
+            "doubao-seedance-2-5-betydance"
+          ],
+          "schema": {
+            "duration": {
+              "type": "number",
+              "unit": "second",
+              "description": {
+                "en": "Output video duration in seconds (defaults to 10s when omitted).",
+                "zh": "输出视频时长（秒），不传时默认 10 秒。"
+              }
+            },
+            "resolution": {
+              "enum": [
+                "480p",
+                "720p",
+                "1080p"
+              ],
+              "description": {
+                "en": "Output video resolution tier",
+                "zh": "输出视频分辨率档位"
+              },
+              "enumLabels": {
+                "1080p": {
+                  "en": "1080p",
+                  "zh": "1080p"
+                },
+                "480p": {
+                  "en": "480p",
+                  "zh": "480p"
+                },
+                "720p": {
+                  "en": "720p",
+                  "zh": "720p"
+                }
+              }
+            },
+            "tokens": {
+              "type": "number",
+              "unit": "token",
+              "description": {
+                "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024); the gateway settles the real total on completion.",
+                "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）；完成时按网关回报的真实用量结算。"
+              }
+            },
+            "video_input": {
+              "enum": [
+                "none",
+                "video"
+              ],
+              "description": {
+                "en": "Reference video input",
+                "zh": "参考视频输入"
+              },
+              "enumLabels": {
+                "none": {
+                  "en": "No reference video",
+                  "zh": "无参考视频"
+                },
+                "video": {
+                  "en": "With reference video",
+                  "zh": "有参考视频"
+                }
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "480p · 5s",
+              "facts": {
+                "duration": 5,
+                "resolution": "480p",
+                "tokens": 48038,
+                "video_input": "none"
+              }
+            },
+            {
+              "label": "720p · 5s",
+              "facts": {
+                "duration": 5,
+                "resolution": "720p",
+                "tokens": 108000,
+                "video_input": "none"
+              }
+            },
+            {
+              "label": "1080p · 5s",
+              "facts": {
+                "duration": 5,
+                "resolution": "1080p",
+                "tokens": 243000,
+                "video_input": "none"
+              }
+            },
+            {
+              "label": "720p · 5s (视频输入)",
+              "facts": {
+                "duration": 5,
+                "resolution": "720p",
+                "tokens": 108000,
+                "video_input": "video"
+              }
+            },
+            {
+              "label": "720p · 10s (默认时长)",
+              "facts": {
+                "duration": 10,
+                "resolution": "720p",
+                "tokens": 216000,
+                "video_input": "none"
+              }
+            }
+          ]
+        },
+        {
+          "models": [
+            "doubao-seedance-2-0-260128-betydance"
+          ],
+          "schema": {
+            "duration": {
+              "type": "number",
+              "unit": "second",
+              "description": {
+                "en": "Output video duration in seconds (defaults to 5s when omitted).",
+                "zh": "输出视频时长（秒），不传时默认 5 秒。"
+              }
+            },
+            "resolution": {
+              "enum": [
+                "480p",
+                "720p",
+                "1080p",
+                "4k"
+              ],
+              "description": {
+                "en": "Output video resolution tier",
+                "zh": "输出视频分辨率档位"
+              },
+              "enumLabels": {
+                "1080p": {
+                  "en": "1080p",
+                  "zh": "1080p"
+                },
+                "480p": {
+                  "en": "480p",
+                  "zh": "480p"
+                },
+                "4k": {
+                  "en": "4k",
+                  "zh": "4k"
+                },
+                "720p": {
+                  "en": "720p",
+                  "zh": "720p"
+                }
+              }
+            },
+            "tokens": {
+              "type": "number",
+              "unit": "token",
+              "description": {
+                "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024); the gateway settles the real total on completion.",
+                "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）；完成时按网关回报的真实用量结算。"
+              }
+            },
+            "video_input": {
+              "enum": [
+                "none",
+                "video"
+              ],
+              "description": {
+                "en": "Reference video input",
+                "zh": "参考视频输入"
+              },
+              "enumLabels": {
+                "none": {
+                  "en": "No reference video",
+                  "zh": "无参考视频"
+                },
+                "video": {
+                  "en": "With reference video",
+                  "zh": "有参考视频"
+                }
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "480p · 5s",
+              "facts": {
+                "duration": 5,
+                "resolution": "480p",
+                "tokens": 48038,
+                "video_input": "none"
+              }
+            },
+            {
+              "label": "720p · 5s",
+              "facts": {
+                "duration": 5,
+                "resolution": "720p",
+                "tokens": 108000,
+                "video_input": "none"
+              }
+            },
+            {
+              "label": "1080p · 5s",
+              "facts": {
+                "duration": 5,
+                "resolution": "1080p",
+                "tokens": 243000,
+                "video_input": "none"
+              }
+            },
+            {
+              "label": "4k · 5s",
+              "facts": {
+                "duration": 5,
+                "resolution": "4k",
+                "tokens": 972000,
+                "video_input": "none"
+              }
+            },
+            {
+              "label": "720p · 5s (视频输入)",
+              "facts": {
+                "duration": 5,
+                "resolution": "720p",
+                "tokens": 108000,
+                "video_input": "video"
+              }
+            }
+          ]
+        },
+        {
+          "models": [
+            "doubao-seedance-2-0-fast-260129-betydance",
+            "doubao-seedance-2-0-mini-260616-betydance"
+          ],
+          "schema": {
+            "duration": {
+              "type": "number",
+              "unit": "second",
+              "description": {
+                "en": "Output video duration in seconds (defaults to 5s when omitted).",
+                "zh": "输出视频时长（秒），不传时默认 5 秒。"
+              }
+            },
+            "resolution": {
+              "enum": [
+                "480p",
+                "720p"
+              ],
+              "description": {
+                "en": "Output video resolution tier",
+                "zh": "输出视频分辨率档位"
+              },
+              "enumLabels": {
+                "480p": {
+                  "en": "480p",
+                  "zh": "480p"
+                },
+                "720p": {
+                  "en": "720p",
+                  "zh": "720p"
+                }
+              }
+            },
+            "tokens": {
+              "type": "number",
+              "unit": "token",
+              "description": {
+                "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024); the gateway settles the real total on completion.",
+                "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）；完成时按网关回报的真实用量结算。"
+              }
+            },
+            "video_input": {
+              "enum": [
+                "none",
+                "video"
+              ],
+              "description": {
+                "en": "Reference video input",
+                "zh": "参考视频输入"
+              },
+              "enumLabels": {
+                "none": {
+                  "en": "No reference video",
+                  "zh": "无参考视频"
+                },
+                "video": {
+                  "en": "With reference video",
+                  "zh": "有参考视频"
+                }
+              }
+            }
+          },
+          "examples": [
+            {
+              "label": "480p · 5s",
+              "facts": {
+                "duration": 5,
+                "resolution": "480p",
+                "tokens": 48038,
+                "video_input": "none"
+              }
+            },
+            {
+              "label": "720p · 5s",
+              "facts": {
+                "duration": 5,
+                "resolution": "720p",
+                "tokens": 108000,
+                "video_input": "none"
+              }
+            },
+            {
+              "label": "720p · 5s (视频输入)",
+              "facts": {
+                "duration": 5,
+                "resolution": "720p",
+                "tokens": 108000,
+                "video_input": "video"
+              }
+            }
+          ]
+        }
+      ],
+      "channelTypes": [
+        104,
+        105
+      ],
+      "models": [
+        "doubao-seedance-2.0",
+        "doubao-seedance-2.0-fast",
+        "doubao-seedance-2.0-mini",
+        "doubao-seedance-2-5-betydance",
+        "doubao-seedance-2-0-260128-betydance",
+        "doubao-seedance-2-0-fast-260129-betydance",
+        "doubao-seedance-2-0-mini-260616-betydance"
+      ],
+      "latest": "1.0.0",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "path": "plugins/tasks/seedance/1.0.0/plugin.js",
+          "sha256": "e9ca8902449477157df833cb9cfb50abf652d5c1392eafb09009b758e560de4f",
+          "minApiVersion": 1,
+          "kind": "task"
+        }
+      ]
+    },
+    {
       "key": "sora",
       "name": "Sora",
       "icon": "Sora.Color",
