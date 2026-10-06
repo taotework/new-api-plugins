@@ -3583,6 +3583,20 @@
           "type": "query",
           "render": "arkTaskStatus",
           "taskIdParam": "task_id"
+        },
+        {
+          "method": "POST",
+          "path": "/seedance/api/v3/contents/generations/tasks",
+          "type": "submit",
+          "decode": "createArkTask",
+          "render": "arkTaskCreated"
+        },
+        {
+          "method": "GET",
+          "path": "/seedance/api/v3/contents/generations/tasks/:task_id",
+          "type": "query",
+          "render": "arkTaskStatus",
+          "taskIdParam": "task_id"
         }
       ],
       "protocols": [
@@ -3716,7 +3730,8 @@
       "usageProfiles": [
         {
           "models": [
-            "doubao-seedance-2.0"
+            "doubao-seedance-2.0",
+            "wux-dance-2-0"
           ],
           "schema": {
             "duration": {
@@ -3929,7 +3944,8 @@
         },
         {
           "models": [
-            "doubao-seedance-2-5-betydance"
+            "doubao-seedance-2-5-betydance",
+            "wux-dance-2-5"
           ],
           "schema": {
             "duration": {
@@ -4165,7 +4181,9 @@
         {
           "models": [
             "doubao-seedance-2-0-fast-260129-betydance",
-            "doubao-seedance-2-0-mini-260616-betydance"
+            "doubao-seedance-2-0-mini-260616-betydance",
+            "wux-dance-2-0-fast",
+            "wux-dance-2-0-mini"
           ],
           "schema": {
             "duration": {
@@ -4258,7 +4276,8 @@
         {
           "models": [
             "tipdance-2-5-pro",
-            "tipdance-2-5-pro-inel"
+            "tipdance-2-5-pro-inel",
+            "wux-dance-2-5-intl"
           ],
           "schema": {
             "duration": {
@@ -4365,7 +4384,8 @@
         {
           "models": [
             "tipdance-2-0-pro",
-            "tipdance-2-0-pro-intl"
+            "tipdance-2-0-pro-intl",
+            "wux-dance-2-0-intl"
           ],
           "schema": {
             "duration": {
@@ -4488,7 +4508,9 @@
             "tipdance-2-0-fast",
             "tipdance-2-0-fast-intl",
             "tipdance-2-0-mini",
-            "tipdance-2-0-mini-intl"
+            "tipdance-2-0-mini-intl",
+            "wux-dance-2-0-fast-intl",
+            "wux-dance-2-0-mini-intl"
           ],
           "schema": {
             "duration": {
@@ -4904,10 +4926,25 @@
         "tipdance-2-0-mini-intl",
         "seedance-2.0",
         "Wonder-Pro",
-        "pgy-seedance-2.0"
+        "pgy-seedance-2.0",
+        "wux-dance-2-0",
+        "wux-dance-2-5",
+        "wux-dance-2-0-fast",
+        "wux-dance-2-0-mini",
+        "wux-dance-2-5-intl",
+        "wux-dance-2-0-intl",
+        "wux-dance-2-0-fast-intl",
+        "wux-dance-2-0-mini-intl"
       ],
-      "latest": "1.2.2",
+      "latest": "1.2.3",
       "versions": [
+        {
+          "version": "1.2.3",
+          "path": "plugins/tasks/seedance/1.2.3/plugin.js",
+          "sha256": "0c4e5111a9c039667da8c8ac7baaca056473b5244e35e7143f0e4045331d9c92",
+          "minApiVersion": 1,
+          "kind": "task"
+        },
         {
           "version": "1.2.2",
           "path": "plugins/tasks/seedance/1.2.2/plugin.js",
