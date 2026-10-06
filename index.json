@@ -4906,8 +4906,15 @@
         "Wonder-Pro",
         "pgy-seedance-2.0"
       ],
-      "latest": "1.2.1",
+      "latest": "1.2.2",
       "versions": [
+        {
+          "version": "1.2.2",
+          "path": "plugins/tasks/seedance/1.2.2/plugin.js",
+          "sha256": "78273e5aee3ad569142bf72738a42d42bcda86e8c8a24e20c3b52cfc7bc3f362",
+          "minApiVersion": 1,
+          "kind": "task"
+        },
         {
           "version": "1.2.1",
           "path": "plugins/tasks/seedance/1.2.1/plugin.js",
