@@ -3603,8 +3603,8 @@
           "type": "number",
           "unit": "second",
           "description": {
-            "en": "Output video duration in seconds. Requests that omit it default to 5s, except the TelecomJS 2.5 tier which defaults to 10s; Stelloria only offers 5s or 10s.",
-            "zh": "输出视频时长（秒）。不传时默认 5 秒；电信 2.5 档默认 10 秒；星瞳仅支持 5 或 10 秒。"
+            "en": "Output video duration in seconds",
+            "zh": "输出视频时长（秒）"
           }
         },
         "resolution": {
@@ -3615,8 +3615,8 @@
             "4k"
           ],
           "description": {
-            "en": "Output video resolution tier. 4k is supported by the 2.0 standard tiers; fast/mini tiers cap at 720p; the 2.5 tier caps at 1080p; the Stelloria models offer 720p and above.",
-            "zh": "输出视频分辨率档位。4k 仅 2.0 标准版支持；fast/mini 档上限 720p；2.5 档上限 1080p；星瞳系模型仅提供 720p 及以上。"
+            "en": "Output video resolution",
+            "zh": "输出视频分辨率"
           },
           "enumLabels": {
             "1080p": {
@@ -3641,8 +3641,8 @@
           "type": "number",
           "unit": "token",
           "description": {
-            "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024); completion settles the bill with the upstream-reported figures when available.",
-            "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）；上游回报真实数据时完成结算会覆盖预估值。"
+            "en": "Billing token unit price",
+            "zh": "计费 Token 单价"
           }
         },
         "video_input": {
@@ -3651,8 +3651,8 @@
             "video"
           ],
           "description": {
-            "en": "Reference video input.",
-            "zh": "参考视频输入。"
+            "en": "Reference video input",
+            "zh": "参考视频输入"
           },
           "enumLabels": {
             "none": {
@@ -3704,38 +3704,11 @@
           }
         },
         {
-          "label": "4k · 5s (视频输入)",
+          "label": "720p · 5s (视频输入)",
           "facts": {
             "duration": 5,
-            "resolution": "4k",
-            "tokens": 972000,
-            "video_input": "video"
-          }
-        },
-        {
-          "label": "720p · 10s",
-          "facts": {
-            "duration": 10,
             "resolution": "720p",
-            "tokens": 216000,
-            "video_input": "none"
-          }
-        },
-        {
-          "label": "1080p · 10s (电信 2.5 档默认时长)",
-          "facts": {
-            "duration": 10,
-            "resolution": "1080p",
-            "tokens": 486000,
-            "video_input": "none"
-          }
-        },
-        {
-          "label": "1080p · 5s (视频输入)",
-          "facts": {
-            "duration": 5,
-            "resolution": "1080p",
-            "tokens": 243000,
+            "tokens": 108000,
             "video_input": "video"
           }
         }
@@ -3750,8 +3723,8 @@
               "type": "number",
               "unit": "second",
               "description": {
-                "en": "Output video duration in seconds (defaults to 5s when omitted).",
-                "zh": "输出视频时长（秒），不传时默认 5 秒。"
+                "en": "Output video duration in seconds",
+                "zh": "输出视频时长（秒）"
               }
             },
             "resolution": {
@@ -3762,8 +3735,8 @@
                 "4k"
               ],
               "description": {
-                "en": "Output video resolution tier",
-                "zh": "输出视频分辨率档位"
+                "en": "Output video resolution",
+                "zh": "输出视频分辨率"
               },
               "enumLabels": {
                 "1080p": {
@@ -3788,8 +3761,8 @@
               "type": "number",
               "unit": "token",
               "description": {
-                "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024); completion settles the bill with the upstream-reported figures when available.",
-                "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）；上游回报真实数据时完成结算会覆盖预估值。"
+                "en": "Billing token unit price",
+                "zh": "计费 Token 单价"
               }
             },
             "video_input": {
@@ -3871,8 +3844,8 @@
               "type": "number",
               "unit": "second",
               "description": {
-                "en": "Output video duration in seconds (defaults to 5s when omitted).",
-                "zh": "输出视频时长（秒），不传时默认 5 秒。"
+                "en": "Output video duration in seconds",
+                "zh": "输出视频时长（秒）"
               }
             },
             "resolution": {
@@ -3881,8 +3854,8 @@
                 "720p"
               ],
               "description": {
-                "en": "Output video resolution tier",
-                "zh": "输出视频分辨率档位"
+                "en": "Output video resolution",
+                "zh": "输出视频分辨率"
               },
               "enumLabels": {
                 "480p": {
@@ -3899,8 +3872,8 @@
               "type": "number",
               "unit": "token",
               "description": {
-                "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024); completion settles the bill with the upstream-reported figures when available.",
-                "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）；上游回报真实数据时完成结算会覆盖预估值。"
+                "en": "Billing token unit price",
+                "zh": "计费 Token 单价"
               }
             },
             "video_input": {
@@ -3963,8 +3936,8 @@
               "type": "number",
               "unit": "second",
               "description": {
-                "en": "Output video duration in seconds (defaults to 10s when omitted).",
-                "zh": "输出视频时长（秒），不传时默认 10 秒。"
+                "en": "Output video duration in seconds",
+                "zh": "输出视频时长（秒）"
               }
             },
             "resolution": {
@@ -3974,8 +3947,8 @@
                 "1080p"
               ],
               "description": {
-                "en": "Output video resolution tier",
-                "zh": "输出视频分辨率档位"
+                "en": "Output video resolution",
+                "zh": "输出视频分辨率"
               },
               "enumLabels": {
                 "1080p": {
@@ -3996,8 +3969,8 @@
               "type": "number",
               "unit": "token",
               "description": {
-                "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024); completion settles the bill with the upstream-reported figures when available.",
-                "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）；上游回报真实数据时完成结算会覆盖预估值。"
+                "en": "Billing token unit price",
+                "zh": "计费 Token 单价"
               }
             },
             "video_input": {
@@ -4078,8 +4051,8 @@
               "type": "number",
               "unit": "second",
               "description": {
-                "en": "Output video duration in seconds (defaults to 5s when omitted).",
-                "zh": "输出视频时长（秒），不传时默认 5 秒。"
+                "en": "Output video duration in seconds",
+                "zh": "输出视频时长（秒）"
               }
             },
             "resolution": {
@@ -4090,8 +4063,8 @@
                 "4k"
               ],
               "description": {
-                "en": "Output video resolution tier",
-                "zh": "输出视频分辨率档位"
+                "en": "Output video resolution",
+                "zh": "输出视频分辨率"
               },
               "enumLabels": {
                 "1080p": {
@@ -4116,8 +4089,8 @@
               "type": "number",
               "unit": "token",
               "description": {
-                "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024); completion settles the bill with the upstream-reported figures when available.",
-                "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）；上游回报真实数据时完成结算会覆盖预估值。"
+                "en": "Billing token unit price",
+                "zh": "计费 Token 单价"
               }
             },
             "video_input": {
@@ -4199,8 +4172,8 @@
               "type": "number",
               "unit": "second",
               "description": {
-                "en": "Output video duration in seconds (defaults to 5s when omitted).",
-                "zh": "输出视频时长（秒），不传时默认 5 秒。"
+                "en": "Output video duration in seconds",
+                "zh": "输出视频时长（秒）"
               }
             },
             "resolution": {
@@ -4209,8 +4182,8 @@
                 "720p"
               ],
               "description": {
-                "en": "Output video resolution tier",
-                "zh": "输出视频分辨率档位"
+                "en": "Output video resolution",
+                "zh": "输出视频分辨率"
               },
               "enumLabels": {
                 "480p": {
@@ -4227,8 +4200,8 @@
               "type": "number",
               "unit": "token",
               "description": {
-                "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024); completion settles the bill with the upstream-reported figures when available.",
-                "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）；上游回报真实数据时完成结算会覆盖预估值。"
+                "en": "Billing token unit price",
+                "zh": "计费 Token 单价"
               }
             },
             "video_input": {
@@ -4292,8 +4265,8 @@
               "type": "number",
               "unit": "second",
               "description": {
-                "en": "Output video duration in seconds (defaults to 5s when omitted).",
-                "zh": "输出视频时长（秒），不传时默认 5 秒。"
+                "en": "Output video duration in seconds",
+                "zh": "输出视频时长（秒）"
               }
             },
             "resolution": {
@@ -4303,8 +4276,8 @@
                 "1080p"
               ],
               "description": {
-                "en": "Output video resolution tier",
-                "zh": "输出视频分辨率档位"
+                "en": "Output video resolution",
+                "zh": "输出视频分辨率"
               },
               "enumLabels": {
                 "1080p": {
@@ -4325,8 +4298,8 @@
               "type": "number",
               "unit": "token",
               "description": {
-                "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024); completion settles the bill with the upstream-reported figures when available.",
-                "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）；上游回报真实数据时完成结算会覆盖预估值。"
+                "en": "Billing token unit price",
+                "zh": "计费 Token 单价"
               }
             },
             "video_input": {
@@ -4399,8 +4372,8 @@
               "type": "number",
               "unit": "second",
               "description": {
-                "en": "Output video duration in seconds (defaults to 5s when omitted).",
-                "zh": "输出视频时长（秒），不传时默认 5 秒。"
+                "en": "Output video duration in seconds",
+                "zh": "输出视频时长（秒）"
               }
             },
             "resolution": {
@@ -4411,8 +4384,8 @@
                 "4k"
               ],
               "description": {
-                "en": "Output video resolution tier",
-                "zh": "输出视频分辨率档位"
+                "en": "Output video resolution",
+                "zh": "输出视频分辨率"
               },
               "enumLabels": {
                 "1080p": {
@@ -4437,8 +4410,8 @@
               "type": "number",
               "unit": "token",
               "description": {
-                "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024); completion settles the bill with the upstream-reported figures when available.",
-                "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）；上游回报真实数据时完成结算会覆盖预估值。"
+                "en": "Billing token unit price",
+                "zh": "计费 Token 单价"
               }
             },
             "video_input": {
@@ -4522,8 +4495,8 @@
               "type": "number",
               "unit": "second",
               "description": {
-                "en": "Output video duration in seconds (defaults to 5s when omitted).",
-                "zh": "输出视频时长（秒），不传时默认 5 秒。"
+                "en": "Output video duration in seconds",
+                "zh": "输出视频时长（秒）"
               }
             },
             "resolution": {
@@ -4532,8 +4505,8 @@
                 "720p"
               ],
               "description": {
-                "en": "Output video resolution tier",
-                "zh": "输出视频分辨率档位"
+                "en": "Output video resolution",
+                "zh": "输出视频分辨率"
               },
               "enumLabels": {
                 "480p": {
@@ -4550,8 +4523,8 @@
               "type": "number",
               "unit": "token",
               "description": {
-                "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024); completion settles the bill with the upstream-reported figures when available.",
-                "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）；上游回报真实数据时完成结算会覆盖预估值。"
+                "en": "Billing token unit price",
+                "zh": "计费 Token 单价"
               }
             },
             "video_input": {
@@ -4614,8 +4587,8 @@
               "type": "number",
               "unit": "second",
               "description": {
-                "en": "Output video duration in seconds (defaults to 5s when omitted).",
-                "zh": "输出视频时长（秒），不传时默认 5 秒。"
+                "en": "Output video duration in seconds",
+                "zh": "输出视频时长（秒）"
               }
             },
             "resolution": {
@@ -4625,8 +4598,8 @@
                 "4k"
               ],
               "description": {
-                "en": "Output video resolution tier",
-                "zh": "输出视频分辨率档位"
+                "en": "Output video resolution",
+                "zh": "输出视频分辨率"
               },
               "enumLabels": {
                 "1080p": {
@@ -4647,8 +4620,8 @@
               "type": "number",
               "unit": "token",
               "description": {
-                "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024); completion settles the bill with the upstream-reported figures when available.",
-                "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）；上游回报真实数据时完成结算会覆盖预估值。"
+                "en": "Billing token unit price",
+                "zh": "计费 Token 单价"
               }
             },
             "video_input": {
@@ -4720,8 +4693,8 @@
               "type": "number",
               "unit": "second",
               "description": {
-                "en": "Output video duration in seconds (defaults to 5s when omitted).",
-                "zh": "输出视频时长（秒），不传时默认 5 秒。"
+                "en": "Output video duration in seconds",
+                "zh": "输出视频时长（秒）"
               }
             },
             "resolution": {
@@ -4731,8 +4704,8 @@
                 "4k"
               ],
               "description": {
-                "en": "Output video resolution tier",
-                "zh": "输出视频分辨率档位"
+                "en": "Output video resolution",
+                "zh": "输出视频分辨率"
               },
               "enumLabels": {
                 "1080p": {
@@ -4753,8 +4726,8 @@
               "type": "number",
               "unit": "token",
               "description": {
-                "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024); completion settles the bill with the upstream-reported figures when available.",
-                "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）；上游回报真实数据时完成结算会覆盖预估值。"
+                "en": "Billing token unit price",
+                "zh": "计费 Token 单价"
               }
             }
           },
@@ -4794,8 +4767,8 @@
               "type": "number",
               "unit": "second",
               "description": {
-                "en": "Output video duration in seconds (defaults to 5s when omitted).",
-                "zh": "输出视频时长（秒），不传时默认 5 秒。"
+                "en": "Output video duration in seconds",
+                "zh": "输出视频时长（秒）"
               }
             },
             "resolution": {
@@ -4806,8 +4779,8 @@
                 "4k"
               ],
               "description": {
-                "en": "Output video resolution tier",
-                "zh": "输出视频分辨率档位"
+                "en": "Output video resolution",
+                "zh": "输出视频分辨率"
               },
               "enumLabels": {
                 "1080p": {
@@ -4832,8 +4805,8 @@
               "type": "number",
               "unit": "token",
               "description": {
-                "en": "Estimated billing tokens (Seedance formula: seconds × width × height × 24 / 1024); completion settles the bill with the upstream-reported figures when available.",
-                "zh": "预估计费 token（Seedance 公式：秒 × 宽 × 高 × 24 / 1024）；上游回报真实数据时完成结算会覆盖预估值。"
+                "en": "Billing token unit price",
+                "zh": "计费 Token 单价"
               }
             },
             "video_input": {
@@ -4933,8 +4906,15 @@
         "Wonder-Pro",
         "pgy-seedance-2.0"
       ],
-      "latest": "1.2.0",
+      "latest": "1.2.1",
       "versions": [
+        {
+          "version": "1.2.1",
+          "path": "plugins/tasks/seedance/1.2.1/plugin.js",
+          "sha256": "3b89e2c3decac078436356908eabc915a00b554473983516b4b7fb0766287eeb",
+          "minApiVersion": 1,
+          "kind": "task"
+        },
         {
           "version": "1.2.0",
           "path": "plugins/tasks/seedance/1.2.0/plugin.js",
