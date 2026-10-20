@@ -2633,8 +2633,15 @@
         "kling-v1-6",
         "kling-v2-master"
       ],
-      "latest": "1.1.0",
+      "latest": "1.1.1",
       "versions": [
+        {
+          "version": "1.1.1",
+          "path": "plugins/tasks/kling/1.1.1/plugin.js",
+          "sha256": "ea55677447688900074b524ace51060e1ddb31a8b7af6ba98f319954ed683371",
+          "minApiVersion": 1,
+          "kind": "task"
+        },
         {
           "version": "1.1.0",
           "path": "plugins/tasks/kling/1.1.0/plugin.js",
