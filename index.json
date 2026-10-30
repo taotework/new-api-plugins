@@ -5183,8 +5183,15 @@
         "wux-dance-2-0-fast-intl",
         "wux-dance-2-0-mini-intl"
       ],
-      "latest": "1.2.4",
+      "latest": "1.2.5",
       "versions": [
+        {
+          "version": "1.2.5",
+          "path": "plugins/tasks/seedance/1.2.5/plugin.js",
+          "sha256": "58407482986967ccb3f724b044a53a4aee931365210d56f1b121a0443d366084",
+          "minApiVersion": 1,
+          "kind": "task"
+        },
         {
           "version": "1.2.4",
           "path": "plugins/tasks/seedance/1.2.4/plugin.js",
